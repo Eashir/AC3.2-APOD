@@ -14,6 +14,8 @@
 		20AB9F121DCEB8F4005F985B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20AB9F101DCEB8F4005F985B /* LaunchScreen.storyboard */; };
 		20AB9F1D1DCEB8F4005F985B /* NASATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB9F1C1DCEB8F4005F985B /* NASATests.swift */; };
 		20AB9F281DCEB8F4005F985B /* NASAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB9F271DCEB8F4005F985B /* NASAUITests.swift */; };
+		20AB9F381DCECB52005F985B /* APOD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB9F371DCECB52005F985B /* APOD.swift */; };
+		20AB9F401DCECEFB005F985B /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AB9F3F1DCECEFB005F985B /* APIRequestManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		20AB9F231DCEB8F4005F985B /* NASAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NASAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20AB9F271DCEB8F4005F985B /* NASAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASAUITests.swift; sourceTree = "<group>"; };
 		20AB9F291DCEB8F4005F985B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20AB9F371DCECB52005F985B /* APOD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APOD.swift; sourceTree = "<group>"; };
+		20AB9F3F1DCECEFB005F985B /* APIRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +101,13 @@
 		20AB9F061DCEB8F4005F985B /* NASA */ = {
 			isa = PBXGroup;
 			children = (
-				20AB9F071DCEB8F4005F985B /* AppDelegate.swift */,
-				20AB9F091DCEB8F4005F985B /* ViewController.swift */,
+				20AB9F3B1DCECECC005F985B /* Support Files */,
+				20AB9F3A1DCECEB9005F985B /* View Controllers */,
+				20AB9F391DCECEAE005F985B /* Models */,
 				20AB9F0B1DCEB8F4005F985B /* Main.storyboard */,
 				20AB9F0E1DCEB8F4005F985B /* Assets.xcassets */,
 				20AB9F101DCEB8F4005F985B /* LaunchScreen.storyboard */,
-				20AB9F131DCEB8F4005F985B /* Info.plist */,
+				20AB9F411DCECF03005F985B /* Networking */,
 			);
 			path = NASA;
 			sourceTree = "<group>";
@@ -123,6 +128,39 @@
 				20AB9F291DCEB8F4005F985B /* Info.plist */,
 			);
 			path = NASAUITests;
+			sourceTree = "<group>";
+		};
+		20AB9F391DCECEAE005F985B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				20AB9F371DCECB52005F985B /* APOD.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		20AB9F3A1DCECEB9005F985B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				20AB9F091DCEB8F4005F985B /* ViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		20AB9F3B1DCECECC005F985B /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				20AB9F071DCEB8F4005F985B /* AppDelegate.swift */,
+				20AB9F131DCEB8F4005F985B /* Info.plist */,
+			);
+			name = "Support Files";
+			sourceTree = "<group>";
+		};
+		20AB9F411DCECF03005F985B /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				20AB9F3F1DCECEFB005F985B /* APIRequestManager.swift */,
+			);
+			name = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,7 +297,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20AB9F401DCECEFB005F985B /* APIRequestManager.swift in Sources */,
 				20AB9F0A1DCEB8F4005F985B /* ViewController.swift in Sources */,
+				20AB9F381DCECB52005F985B /* APOD.swift in Sources */,
 				20AB9F081DCEB8F4005F985B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
