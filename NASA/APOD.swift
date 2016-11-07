@@ -9,41 +9,62 @@
 import Foundation
 
 enum APODModelParseError: Error {
-    case results(json:Any)
-    case name
+    case response,title,description,imageURL,mediaType
 }
+
 class APOD {
-    var name: String
+    var title: String
+    var description: String
+    var imageURL: String
+    var mediaType: String
     
-    init(name: String) {
-        self.name = name
+    init(title: String, description: String, imageURL: String, mediaType: String) {
+        self.title = title
+        self.description = description
+        self.imageURL = imageURL
+        self.mediaType = mediaType
+        
     }
     
     
     
-    static func apods(from data:Data) -> [APOD]? {
-        var apodsToReturn: [APOD]? = []
+    static func apods(from data:Data) -> APOD? {
         
         do {
             let jsonData: Any = try JSONSerialization.jsonObject(with: data, options: [])
             
-            guard let results: [String: AnyObject] = jsonData as? [String: AnyObject],
-            let explanations = results["explanation"] else {
-                throw APODModelParseError.results(json: jsonData)
-            }
+            guard let response: [String: String] = jsonData as? [String: String]
+                else { throw APODModelParseError.response }
             
-            apodsToReturn?.append(explanations as! APOD)
+            guard let description = response["explanation"]
+                else { throw APODModelParseError.description }
+            
+            
+            guard let title = response["title"]
+                else { throw APODModelParseError.title }
+            
+            guard let mediaType = response["media_type"]
+                else { throw APODModelParseError.mediaType }
+            
+            guard let url = response["url"]
+                else { throw APODModelParseError.imageURL }
+
+
+            
+            let validAPOD: APOD = APOD(title: title,
+                                       description: description,
+                                       imageURL: url,
+                                       mediaType: mediaType
+                                      )
+            return validAPOD
+            
             
         }
         
-        catch let APODModelParseError.results(json: json) {
-            print(" Error with Apod or results \(json)")
+        catch 	{
+            print("Unknown Error")
         }
         
-        catch  {
-            print("Unknown parsing error")
-        }
-        
-        return apodsToReturn
+       return nil
     }
 }

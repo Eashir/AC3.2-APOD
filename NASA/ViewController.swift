@@ -18,8 +18,9 @@ class ViewController: UIViewController {
     var month = Int()
     var year = Int()
     
+    @IBOutlet weak var APODTitle: UILabel!
     @IBOutlet weak var APODDatePicker: UIDatePicker!
-    @IBOutlet weak var APODDescription: UILabel!
+    @IBOutlet weak var APODDescription: UITextView!
     @IBOutlet weak var APODImage: UIImageView!
     
     override func viewDidLoad() {
@@ -31,7 +32,7 @@ class ViewController: UIViewController {
         APIRequestManager.manager.getData(endPoint: "https://api.nasa.gov/planetary/apod?api_key=oDOOyNKr9DxBksVZro3Xpjv9ol2JA3btQzzK77ff&date=\(year)-\(month)-\(day)") { (data: Data?) in
             if let validData = data,
                 let validAPODs = APOD.apods(from: validData) {
-                self.apods = validAPODs
+                self.apods = [validAPODs]
                 DispatchQueue.main.async {
                     self.view.setNeedsDisplay()
                 }
@@ -52,7 +53,7 @@ class ViewController: UIViewController {
   
    
     
-    func getDate () {
+    func getAndSetDate () {
         
         let calendar = NSCalendar.current
         let components = calendar.dateComponents([.day,.month,.year], from: APODDate)
@@ -68,21 +69,16 @@ class ViewController: UIViewController {
         APODDate = sender.date
         sender.datePickerMode = UIDatePickerMode.date
         dateFormatter.dateFormat = "dd MM yyyy"
-        getDate()
+        getAndSetDate()
    
-//        print(APODDate)
-//        
-//        print(year)
-//        print(day)
-//        print(month)
+
        
 
         
         
-        
-        getDate()
+      
         for eachAPOD in apods {
-            APODDescription.text = eachAPOD.name
+            APODDescription.text = eachAPOD.title
         }
         
     }
