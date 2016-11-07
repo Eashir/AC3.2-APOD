@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var apods: [APOD] = []
+    var apods: APOD?
     var APODDate = Date()
     var dateFormatter = DateFormatter()
     
@@ -25,29 +25,32 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-//        APODDescription.text = String(describing: APODDate)
-        
-        APIRequestManager.manager.getData(endPoint: "https://api.nasa.gov/planetary/apod?api_key=oDOOyNKr9DxBksVZro3Xpjv9ol2JA3btQzzK77ff&date=\(year)-\(month)-\(day)") { (data: Data?) in
-            if let validData = data,
-                let validAPODs = APOD.apods(from: validData) {
-                self.apods = [validAPODs]
-                DispatchQueue.main.async {
-                    self.view.setNeedsDisplay()
-                }
+        getAndSetDate()
+        let endpointDate = "https://api.nasa.gov/planetary/apod?api_key=oDOOyNKr9DxBksVZro3Xpjv9ol2JA3btQzzK77ff&date=\(year)-\(month)-\(day)"
+        APIRequestManager.manager.getData(endPoint: endpointDate) { (data: Data?) in
+            
+            if  let validAPODS = APOD.apods(from: data!) {
+                self.apods = validAPODS
+            }
+            
+            
+            DispatchQueue.main.async {
+                        self.APODTitle.text = self.apods?.title
+                        self.APODDescription.text = self.apods?.description
             }
         }
-        print(apods)
-       
+            
+            
+    }
+        
+        
+    
 
     
-        // Do any additional setup after loading the view, typically from a nib.
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
     }
     
   
@@ -55,8 +58,12 @@ class ViewController: UIViewController {
     
     func getAndSetDate () {
         
+        APODDate = APODDatePicker.date
+        APODDatePicker.datePickerMode = UIDatePickerMode.date
+        dateFormatter.dateFormat = "dd MM yyyy"
         let calendar = NSCalendar.current
-        let components = calendar.dateComponents([.day,.month,.year], from: APODDate)
+        var components = calendar.dateComponents([.day,.month,.year], from: APODDate)
+     
         
         year =  components.year!
         month = components.month!
@@ -66,20 +73,14 @@ class ViewController: UIViewController {
     @IBAction func dateChanged(_ sender: UIDatePicker) {
         
        
-        APODDate = sender.date
-        sender.datePickerMode = UIDatePickerMode.date
-        dateFormatter.dateFormat = "dd MM yyyy"
-        getAndSetDate()
-   
-
        
-
+        self.viewDidLoad()
+        
         
         
       
-        for eachAPOD in apods {
-            APODDescription.text = eachAPOD.title
-        }
+        
+        
         
     }
 

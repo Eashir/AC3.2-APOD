@@ -28,7 +28,7 @@ class APOD {
     
     
     
-    static func apods(from data:Data) -> APOD? {
+    static func apods(from data: Data) -> APOD? {
         
         do {
             let jsonData: Any = try JSONSerialization.jsonObject(with: data, options: [])
@@ -62,9 +62,10 @@ class APOD {
         }
         
         catch 	{
-            print("Unknown Error")
+            print("Unknown Error \(error)")
         }
         
        return nil
     }
+    
 }
