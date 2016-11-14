@@ -31,19 +31,33 @@ class ViewController: UIViewController {
             
             if  let validAPODS = APOD.apods(from: data!) {
                 self.apods = validAPODS
+                
+                APIRequestManager.manager.downloadImage(urlString: (self.apods?.imageURL)!) { (data: Data?) in
+                    if  let validData = data {
+                        
+                        DispatchQueue.main.async {
+                            self.APODImage.image = UIImage(data: validData)
+                        }
+                        
+                        
+                    }
+                    
+                }
             }
             
             
             DispatchQueue.main.async {
-                        self.APODTitle.text = self.apods?.title
-                        self.APODDescription.text = self.apods?.description
+                self.APODTitle.text = self.apods?.title
+                self.APODDescription.text = self.apods?.description
+                
             }
         }
-            
-            
+        
+        
+        
     }
-        
-        
+    
+    
     
 
     

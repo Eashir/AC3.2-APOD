@@ -25,5 +25,20 @@ class APIRequestManager {
             callback(validData)
         }.resume()
     }
+    
+    
+    func downloadImage(urlString: String, callback: @escaping (Data?) -> Void ) {
+        
+        guard let imageURL = URL(string: urlString) else { return }
+        let session = URLSession.shared
+        session.dataTask(with: imageURL) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                print("Error encountered!: \(error!)")
+            }
+            guard let imageData = data else { return }
+            callback(imageData)
+            }.resume()
+    }
+
         
 }
